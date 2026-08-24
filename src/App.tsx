@@ -6,6 +6,7 @@ function App() {
 
   return (
     <TodoBoard
+      title="What To Learn"
       todos={todos}
       onAdd={addTodo}
       onToggle={toggleTodo}

@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 
-import type { Todo } from '../../types'
+import type { Todo } from '@/types'
+
 import styles from './TodoListItem.module.css'
 
 interface TodoListItemProps {
