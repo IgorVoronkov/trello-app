@@ -21,7 +21,8 @@
     "nursery": "off"
   },
   "rules": {
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react-perf/jsx-no-new-function-as-prop": "off"
   },
   "settings": {
     "react": {
