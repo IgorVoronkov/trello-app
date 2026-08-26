@@ -1,6 +1,8 @@
 import { TodoBoard } from './components/todo-board/TodoBoard'
 import { useTodos } from './useTodos'
 
+import './index.css'
+
 function App() {
   const { todos, addTodo, toggleTodo, deleteTodo, deleteAllTodos } = useTodos()
 
