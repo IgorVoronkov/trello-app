@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import type { ChangeEvent, SubmitEvent } from 'react'
 
+import { getTodoTitleError } from './getTodoTitleError'
+
 export function useTodoForm(onAdd: (title: string) => void) {
   const [title, setTitle] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -10,14 +12,14 @@ export function useTodoForm(onAdd: (title: string) => void) {
     setTitle(value)
 
     if (error) {
-      setError(validateTodoTitle(value))
+      setError(getTodoTitleError(value))
     }
   }
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const validationError = validateTodoTitle(title)
+    const validationError = getTodoTitleError(title)
 
     if (validationError) {
       setError(validationError)
@@ -30,19 +32,4 @@ export function useTodoForm(onAdd: (title: string) => void) {
   }
 
   return { title, error, handleChange, handleSubmit }
-}
-
-function validateTodoTitle(title: string): string | null {
-  const MAX_TITLE_LENGTH = 30
-  const trimmed = title.trim()
-
-  if (trimmed.length === 0) {
-    return 'Title cannot be empty'
-  }
-
-  if (trimmed.length > MAX_TITLE_LENGTH) {
-    return `Maximum ${MAX_TITLE_LENGTH} characters`
-  }
-
-  return null
 }

@@ -19,7 +19,7 @@ export function TodoListItem({ todo, onToggle, onDelete }: TodoListItemProps) {
         onChange={(e) => onToggle(todo.id, e.target.checked)}
       />
       <span className={clsx(todo.isDone && styles.done)}>{todo.title}</span>
-      <button onClick={() => onDelete(todo.id)}>×</button>
+      <button onClick={() => onDelete(todo.id)}>❌</button>
     </>
   )
 }

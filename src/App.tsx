@@ -1,18 +1,28 @@
+import styles from './App.module.css'
 import { TodoBoard } from './components/todo-board/TodoBoard'
-import { useTodos } from './useTodos'
+import { useTodoLists } from './useTodoLists'
+
+import './index.css'
 
 function App() {
-  const { todos, addTodo, toggleTodo, deleteTodo, deleteAllTodos } = useTodos()
+  const { todoLists, deleteList, setListFilter, addTodo, toggleTodo, deleteTodo, deleteAllTodos } =
+    useTodoLists()
 
   return (
-    <TodoBoard
-      title="What To Learn"
-      todos={todos}
-      onAdd={addTodo}
-      onToggle={toggleTodo}
-      onDelete={deleteTodo}
-      onDeleteAll={deleteAllTodos}
-    />
+    <div className={styles.app}>
+      {todoLists.map((list) => (
+        <TodoBoard
+          key={list.id}
+          list={list}
+          onDeleteList={() => deleteList(list.id)}
+          onSetFilter={(filter) => setListFilter(list.id, filter)}
+          onAddTodo={(title) => addTodo(list.id, title)}
+          onToggleTodo={(todoId, isDone) => toggleTodo(list.id, todoId, isDone)}
+          onDeleteTodo={(todoId) => deleteTodo(list.id, todoId)}
+          onDeleteAllTodos={() => deleteAllTodos(list.id)}
+        />
+      ))}
+    </div>
   )
 }
 
