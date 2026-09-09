@@ -1,9 +1,13 @@
+import { MAX_TODO_TITLE_LENGTH } from '@/constants'
 import type { TodoListWithTodos, TodoStatusFilter } from '@/types'
+import { createTextValidator } from '@/utils'
 
+import { AddItemForm } from '../add-item-form/AddItemForm'
 import { TodoFilter } from '../todo-filter/TodoFilter'
-import { TodoForm } from '../todo-form/TodoForm'
 import { TodoList } from '../todo-list/TodoList'
 import styles from './TodoBoard.module.css'
+
+const validateTodoTitle = createTextValidator(MAX_TODO_TITLE_LENGTH)
 
 type TodoBoardProps = {
   list: TodoListWithTodos
@@ -30,7 +34,7 @@ export function TodoBoard({
         <h3>{list.title}</h3>
         <button onClick={onDeleteList}>❌</button>
       </div>
-      <TodoForm onAdd={onAddTodo} />
+      <AddItemForm validate={validateTodoTitle} onAdd={onAddTodo} />
       <TodoList todos={list.todos} onToggle={onToggleTodo} onDelete={onDeleteTodo} />
       <TodoFilter filter={list.filter} onFilterChange={onSetFilter} />
       <button onClick={onDeleteAllTodos}>Delete all</button>
