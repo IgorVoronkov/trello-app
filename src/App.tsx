@@ -14,10 +14,11 @@ function App() {
   const {
     todoLists,
     addList,
+    editListTitle,
     deleteList,
     setListFilter,
     addTodo,
-    toggleTodo,
+    updateTodo,
     deleteTodo,
     deleteAllTodos,
   } = useTodoLists()
@@ -29,10 +30,12 @@ function App() {
         <TodoBoard
           key={list.id}
           list={list}
+          onEditListTitle={(title) => editListTitle(list.id, title)}
           onDeleteList={() => deleteList(list.id)}
           onSetFilter={(filter) => setListFilter(list.id, filter)}
           onAddTodo={(title) => addTodo(list.id, title)}
-          onToggleTodo={(todoId, isDone) => toggleTodo(list.id, todoId, isDone)}
+          onEditTodoTitle={(todoId, title) => updateTodo(list.id, todoId, { title })}
+          onToggleTodo={(todoId, isDone) => updateTodo(list.id, todoId, { isDone })}
           onDeleteTodo={(todoId) => deleteTodo(list.id, todoId)}
           onDeleteAllTodos={() => deleteAllTodos(list.id)}
         />
