@@ -1,15 +1,22 @@
+import { MAX_TODO_TITLE_LENGTH } from '@/constants'
 import type { TodoListWithTodos, TodoStatusFilter } from '@/types'
+import { createTextValidator } from '@/utils'
 
+import { AddItemForm } from '../add-item-form/AddItemForm'
+import { EditableSpan } from '../EditableSpan/EditableSpan'
 import { TodoFilter } from '../todo-filter/TodoFilter'
-import { TodoForm } from '../todo-form/TodoForm'
 import { TodoList } from '../todo-list/TodoList'
 import styles from './TodoBoard.module.css'
+
+const validateTodoTitle = createTextValidator(MAX_TODO_TITLE_LENGTH)
 
 type TodoBoardProps = {
   list: TodoListWithTodos
   onDeleteList: () => void
+  onEditListTitle: (title: string) => void
   onSetFilter: (filter: TodoStatusFilter) => void
   onAddTodo: (title: string) => void
+  onEditTodoTitle: (todoId: string, title: string) => void
   onToggleTodo: (todoId: string, isDone: boolean) => void
   onDeleteTodo: (todoId: string) => void
   onDeleteAllTodos: () => void
@@ -18,8 +25,10 @@ type TodoBoardProps = {
 export function TodoBoard({
   list,
   onDeleteList,
+  onEditListTitle,
   onSetFilter,
   onAddTodo,
+  onEditTodoTitle,
   onToggleTodo,
   onDeleteTodo,
   onDeleteAllTodos,
@@ -27,11 +36,18 @@ export function TodoBoard({
   return (
     <div>
       <div className={styles.header}>
-        <h3>{list.title}</h3>
+        <h3>
+          <EditableSpan value={list.title} onSave={onEditListTitle} />
+        </h3>
         <button onClick={onDeleteList}>❌</button>
       </div>
-      <TodoForm onAdd={onAddTodo} />
-      <TodoList todos={list.todos} onToggle={onToggleTodo} onDelete={onDeleteTodo} />
+      <AddItemForm validate={validateTodoTitle} onAdd={onAddTodo} />
+      <TodoList
+        todos={list.todos}
+        onEditTitle={onEditTodoTitle}
+        onToggle={onToggleTodo}
+        onDelete={onDeleteTodo}
+      />
       <TodoFilter filter={list.filter} onFilterChange={onSetFilter} />
       <button onClick={onDeleteAllTodos}>Delete all</button>
     </div>

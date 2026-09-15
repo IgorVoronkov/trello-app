@@ -31,6 +31,10 @@ export function useTodoLists() {
     setTodos(restTodos)
   }
 
+  function editListTitle(listId: string, title: string) {
+    setTodoLists((prev) => prev.map((list) => (list.id === listId ? { ...list, title } : list)))
+  }
+
   function setListFilter(listId: string, filter: TodoStatusFilter) {
     setTodoLists(todoLists.map((list) => (list.id === listId ? { ...list, filter } : list)))
   }
@@ -44,11 +48,15 @@ export function useTodoLists() {
     setTodos({ ...todos, [listId]: [newTodo, ...todos[listId]!] })
   }
 
-  function toggleTodo(listId: string, todoId: string, isDone: boolean) {
-    setTodos({
-      ...todos,
-      [listId]: todos[listId]!.map((todo) => (todo.id === todoId ? { ...todo, isDone } : todo)),
-    })
+  function updateTodo(
+    listId: string,
+    todoId: string,
+    changes: Partial<Pick<Todo, 'title' | 'isDone'>>,
+  ) {
+    setTodos((prev) => ({
+      ...prev,
+      [listId]: prev[listId]!.map((todo) => (todo.id === todoId ? { ...todo, ...changes } : todo)),
+    }))
   }
 
   function deleteTodo(listId: string, todoId: string) {
@@ -66,9 +74,10 @@ export function useTodoLists() {
     todoLists: todoListsView,
     addList,
     deleteList,
+    editListTitle,
     setListFilter,
     addTodo,
-    toggleTodo,
+    updateTodo,
     deleteTodo,
     deleteAllTodos,
   }

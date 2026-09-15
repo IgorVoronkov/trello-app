@@ -1,0 +1,3 @@
+export const MAX_TODO_TITLE_LENGTH = 30
+
+export const MAX_TODOLIST_TITLE_LENGTH = 20

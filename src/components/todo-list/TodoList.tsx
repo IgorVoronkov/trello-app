@@ -4,11 +4,12 @@ import { TodoListItem } from '../todo-list-item/TodoListItem'
 
 interface TodoListProps {
   todos: Todo[]
+  onEditTitle: (todoId: string, title: string) => void
   onToggle: (id: string, isDone: boolean) => void
   onDelete: (id: string) => void
 }
 
-export function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
+export function TodoList({ todos, onEditTitle, onToggle, onDelete }: TodoListProps) {
   if (todos.length === 0) {
     return <p>Список пуст</p>
   }
@@ -17,7 +18,12 @@ export function TodoList({ todos, onToggle, onDelete }: TodoListProps) {
     <ul>
       {todos.map((todo) => (
         <li key={todo.id}>
-          <TodoListItem todo={todo} onToggle={onToggle} onDelete={onDelete} />
+          <TodoListItem
+            todo={todo}
+            onEditTitle={onEditTitle}
+            onToggle={onToggle}
+            onDelete={onDelete}
+          />
         </li>
       ))}
     </ul>
