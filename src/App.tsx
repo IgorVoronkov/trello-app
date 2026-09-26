@@ -4,7 +4,7 @@ import { createTextValidator } from '@/utils'
 import styles from './App.module.css'
 import { AddItemForm } from './components/add-item-form/AddItemForm'
 import { TodoBoard } from './components/todo-board/TodoBoard'
-import { useTodoLists } from './useTodoLists'
+import { useTodoLists } from './useTodoLists/useTodoLists'
 
 import './index.css'
 
