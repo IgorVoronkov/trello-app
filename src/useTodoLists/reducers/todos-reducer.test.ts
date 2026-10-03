@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { deepFreeze } from '@/utils/deep-freeze'
+import { deepFreeze } from '@/test/deep-freeze'
 
 import {
   addList,

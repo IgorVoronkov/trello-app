@@ -1,7 +1,7 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
+import { deepFreeze } from '@/test/deep-freeze'
 import type { TodoList } from '@/types'
-import { deepFreeze } from '@/utils/deep-freeze'
 
 import { addList, addTodo, deleteList, editListTitle, setListFilter } from '../actions'
 import { listsReducer } from './lists-reducer'
@@ -11,7 +11,7 @@ function makeList(overrides: Partial<TodoList> = {}): TodoList {
 }
 
 describe('listsReducer', () => {
-  test('ADD_LIST adds a new list to the beginning with filter "all"', () => {
+  it('adds a new list to the beginning with filter "all"', () => {
     const state = deepFreeze([makeList()])
     const action = addList('New list')
 
@@ -23,7 +23,7 @@ describe('listsReducer', () => {
     ])
   })
 
-  test('DELETE_LIST removes the matching list', () => {
+  it('removes the matching list', () => {
     const state = deepFreeze([makeList({ id: '1' }), makeList({ id: '2' })])
     const action = deleteList('1')
 
@@ -32,7 +32,7 @@ describe('listsReducer', () => {
     expect(result).toEqual([makeList({ id: '2' })])
   })
 
-  test('DELETE_LIST with a non-existent listId leaves the list content unchanged', () => {
+  it('with a non-existent listId leaves the list content unchanged', () => {
     const state = deepFreeze([makeList({ id: '1' })])
     const action = deleteList('missing')
 
@@ -41,7 +41,7 @@ describe('listsReducer', () => {
     expect(result).toEqual([makeList({ id: '1' })])
   })
 
-  test('EDIT_LIST_TITLE updates only the matching list', () => {
+  it('updates only the matching list', () => {
     const state = deepFreeze([
       makeList({ id: '1', title: 'Old' }),
       makeList({ id: '2', title: 'Untouched' }),
@@ -56,7 +56,7 @@ describe('listsReducer', () => {
     ])
   })
 
-  test('SET_LIST_FILTER updates only the matching list', () => {
+  it('updates only the matching list', () => {
     const state = deepFreeze([
       makeList({ id: '1', filter: 'all' }),
       makeList({ id: '2', filter: 'all' }),
@@ -71,7 +71,7 @@ describe('listsReducer', () => {
     ])
   })
 
-  test('ignores actions from other slices and returns the same state reference', () => {
+  it('ignores actions from other slices and returns the same state reference', () => {
     const state = deepFreeze([makeList()])
     const action = addTodo('1', 'Some todo')
 
