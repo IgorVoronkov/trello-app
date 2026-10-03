@@ -13,7 +13,8 @@
     "check": "pnpm run lint && pnpm run format",
     "fix": "pnpm run lint:fix && pnpm run format:fix",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "vitest run"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -31,7 +32,8 @@
     "oxlint": "^1.77.0",
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
-    "vite-tsconfig-paths": "^6.1.1"
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^5.0.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
